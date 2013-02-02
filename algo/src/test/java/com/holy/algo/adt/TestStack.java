@@ -6,6 +6,6 @@ public class TestStack {
 
 	@Test
 	public void testStringStack(){
-		
+		System.out.println("this is a testStringStack test");
 	}
 }
