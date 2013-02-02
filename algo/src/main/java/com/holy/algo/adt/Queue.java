@@ -1,6 +1,7 @@
 package com.holy.algo.adt;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Queue<T> implements Iterable<T> {
 
@@ -16,20 +17,35 @@ public class Queue<T> implements Iterable<T> {
 	}
 	
 	public T dequeue(){
-	
-		return null;
+		if( isEmpty() ) throw new NoSuchElementException("Queue underflow");
+		T returnValue = head.element;
+		head = head.next;
+		count--;
+		if( isEmpty() )
+			tail = null;
+		return returnValue;
 	}
 	
 	public void enqueue(T item){
+		Item oldlast = tail;
+		tail = new Item();
+		tail.element = item;
+		tail.next = null;
 		
+		if( isEmpty() ) 
+			head = tail;
+		else
+			oldlast.next = tail;
+		count++;
 	}
 	
 	public T peek(){
-		return null;
+		if( isEmpty() ) throw new NoSuchElementException("Queue underflow");
+		return head.element;
 	}
 	
 	public boolean isEmpty(){
-		return (head == null && tail == null);
+		return (head == null);
 	}
 	
 	public int size()
@@ -44,8 +60,27 @@ public class Queue<T> implements Iterable<T> {
 	}
 	
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Listiterator();
+	}
+	
+	private class Listiterator implements Iterator<T> {
+
+		private Item current = head;
+		public boolean hasNext() {
+			return (current != null);
+		}
+
+		public T next() {
+			if( !hasNext() ) throw new NoSuchElementException();
+			T returnValue = current.element;
+			current = current.next;
+			return returnValue;
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+		
 	}
 
 	private int count;
