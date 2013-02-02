@@ -54,7 +54,7 @@ public class Stack<T> implements Iterable<T> {
 	public String toString(){
 		StringBuilder s = new StringBuilder();
 		for(T e : this){
-			s.append(e + "");
+			s.append(e + " ");
 		}
 		return s.toString();
 	}
