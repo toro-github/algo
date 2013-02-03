@@ -1,7 +1,5 @@
 package com.holy.algo.adt;
 
-import java.util.Iterator;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
