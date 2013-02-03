@@ -16,7 +16,11 @@ public class Bag<T> implements Iterable<T> {
 	}
 	
 	public void add(T item){
-		
+		Item oldHead = head;
+		head = new Item();
+		head.element = item;
+		head.next = oldHead;
+		count++;
 	}
 	
 	public boolean isEmpty(){
@@ -29,6 +33,13 @@ public class Bag<T> implements Iterable<T> {
 	
 	public Iterator<T> iterator() {
 		return new ListIterator();
+	}
+	
+	public String toString(){
+		StringBuilder s = new StringBuilder();
+		for( T e : this)
+			s.append(e + " ");
+		return s.toString();
 	}
 	
 	private class ListIterator implements Iterator<T>{
