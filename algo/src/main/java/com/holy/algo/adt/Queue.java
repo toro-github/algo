@@ -17,7 +17,8 @@ public class Queue<T> implements Iterable<T> {
 	}
 	
 	public T dequeue(){
-		if( isEmpty() ) throw new NoSuchElementException("Queue underflow");
+		if(isEmpty())
+			throw new NoSuchElementException("buffer underflow");
 		T returnValue = head.element;
 		head = head.next;
 		count--;
@@ -27,53 +28,54 @@ public class Queue<T> implements Iterable<T> {
 	}
 	
 	public void enqueue(T item){
-		Item oldlast = tail;
+		Item oldTail = tail;
 		tail = new Item();
 		tail.element = item;
 		tail.next = null;
-		
-		if( isEmpty() ) 
+		count++;
+		if( isEmpty())
 			head = tail;
 		else
-			oldlast.next = tail;
-		count++;
-	}
-	
-	public T peek(){
-		if( isEmpty() ) throw new NoSuchElementException("Queue underflow");
-		return head.element;
+			oldTail.next = tail;
 	}
 	
 	public boolean isEmpty(){
-		return (head == null);
+		return (head==null);
 	}
 	
-	public int size()
-	{
+	public T peek(){
+		if( isEmpty())
+			throw new NoSuchElementException("buffer underflow");
+		return head.element;
+	}
+	
+	public int size(){
 		return count;
 	}
 	
-	public String toString()
-	{
+	public String toString(){
 		StringBuilder s = new StringBuilder();
 		for( T e : this)
 			s.append(e + " ");
 		return s.toString();
 	}
 	
-	public Iterator<T> iterator() {
-		return new Listiterator();
-	}
 	
-	private class Listiterator implements Iterator<T> {
+	public Iterator<T> iterator() {
+		return new ListIterator();
+	}
+
+	private class ListIterator implements Iterator<T>{
 
 		private Item current = head;
+		
 		public boolean hasNext() {
 			return (current != null);
 		}
 
 		public T next() {
-			if( !hasNext() ) throw new NoSuchElementException();
+			if( !hasNext() )
+				throw new NoSuchElementException("buffer underflow");
 			T returnValue = current.element;
 			current = current.next;
 			return returnValue;
@@ -81,10 +83,9 @@ public class Queue<T> implements Iterable<T> {
 
 		public void remove() {
 			throw new UnsupportedOperationException();
-		}
-		
+		}	
 	}
-
+	
 	private int count;
 	private Item head;
 	private Item tail;
