@@ -42,10 +42,10 @@ public class Stack<T> implements Iterable<T> {
 	}
 	
 	public void push(T item){
-		Item newNode = new Item();
-		newNode.element = item;
-		newNode.next = head;
-		head = newNode;
+		Item newItem = new Item();
+		newItem.element = item;
+		newItem.next = head;
+		head = newItem;
 		count++;
 	}
 	
